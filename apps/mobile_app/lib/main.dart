@@ -1,8 +1,8 @@
-import 'package:tmp_lasta_client/tmp_lasta_client.dart';
+import 'package:chatapp_flutter/screens/sign_in_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:serverpod_flutter/serverpod_flutter.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
-
+import 'package:chatapp_client/chatapp_client.dart';
 import 'config/app_config.dart';
 import 'screens/greetings_screen.dart';
 
@@ -32,15 +32,14 @@ void main() async {
   // This ensures the app always uses the correct API URL,
   // no matter which environment it is running in.
   final config = await AppConfig.loadConfig();
-  final serverUrl = serverUrlFromEnv.isEmpty
-      ? config.apiUrl ?? 'http://$localhost:8080/'
-      : serverUrlFromEnv;
+  const String myIp = '192.168.0.37';
+  final serverUrl = 'http://$myIp:8080/';
 
   client = Client(serverUrl)
     ..connectivityMonitor = FlutterConnectivityMonitor()
     ..authSessionManager = FlutterAuthSessionManager();
 
-  client.auth.initialize();
+  await client.auth.initialize();
 
   runApp(const MyApp());
 }
@@ -67,19 +66,19 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(title)),
-      body: const GreetingsScreen(),
+
+      // body: const GreetingsScreen(),
       // To test authentication in this example app, uncomment the line below
       // and comment out the line above. This wraps the GreetingsScreen with a
       // SignInScreen, which automatically shows a sign-in UI when the user is
       // not authenticated and displays the GreetingsScreen once they sign in.
-      //
-      // body: SignInScreen(
-      //   child: GreetingsScreen(
-      //     onSignOut: () async {
-      //       await client.auth.signOutDevice();
-      //     },
-      //   ),
-      // ),
+      body: SignInScreen(
+        child: GreetingsScreen(
+          onSignOut: () async {
+            await client.auth.signOutDevice();
+          },
+        ),
+      ),
     );
   }
 }
