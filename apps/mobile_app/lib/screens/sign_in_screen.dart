@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
-import '../main.dart';
-import '../widgets/bus_widg.dart';
-import '../const/colors.dart';
-
+import 'package:chatapp_flutter/widgets/forme/emailsignin.dart';
 import 'package:flutter/material.dart';
 import 'package:serverpod_auth_idp_flutter/serverpod_auth_idp_flutter.dart';
 import '../main.dart';
@@ -72,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   labelStyle: const TextStyle(color: AppColors.darkBlue),
                 ),
               ),
-              child: EmailSignInWidget(
+              child: BusEmailSignInWidget(
                 client: client,
                 onAuthenticated: () {
                   // Opciono: Možeš ovde dodati neki SnackBar "Dobrodošli!"

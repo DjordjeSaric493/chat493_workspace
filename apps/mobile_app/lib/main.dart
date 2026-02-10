@@ -52,7 +52,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Serverpod Demo',
       theme: ThemeData(primarySwatch: Colors.blue),
-      home: const MyHomePage(title: 'Serverpod Example'),
+      home: const MyHomePage(title: 'Chat App Demo'),
     );
   }
 }
